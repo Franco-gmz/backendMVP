@@ -13,7 +13,7 @@ let update = require('../db/crud/update.js')
 router.get('/project', function(req,res){  
     read.project()
         .then( (results) => res.status(200).send({results: results}))
-        .catch( (errcode) => res.status(500).send({results:"Error"})) //Actuar segun #errcode
+        .catch( (errcode) => res.status(500).send({results:errcode})) //Actuar segun #errcode
 });
 
 router.post('/project', function(req,res){
