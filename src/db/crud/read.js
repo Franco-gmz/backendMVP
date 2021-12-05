@@ -11,7 +11,7 @@ function read_project(){
 
 function read_task(project){
     return new Promise( (resolve,reject) => {
-        db.query("SELECT id, name, description, state, team FROM tasks LEFT JOIN (SELECT id_task, array_agg(id_employee) as team FROM task_teams GROUP BY id_task) as teams ON tasks.id = teams.id_task WHERE id = $1;",[project.get_id()], (err, res) => {
+        db.query("SELECT id, name, description, state, team FROM tasks LEFT JOIN (SELECT id_task, array_agg(id_employee) as team FROM task_teams GROUP BY id_task) as teams ON tasks.id = teams.id_task WHERE id_project = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);
             resolve(res.rows);    
         })
