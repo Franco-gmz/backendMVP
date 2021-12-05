@@ -13,17 +13,11 @@ function read_project(){
 
 function read_task(project){
     return new Promise( (resolve,reject) => {
-        db.query({
-            sql: 'SELECT id, name, description, state, team FROM tasks LEFT JOIN (SELECT id_task, group_concat(id_employee) as team FROM task_teams GROUP BY id_task) as teams ON tasks.id = teams.id_task WHERE id = ?;',
-            timeout: 40000,
-            values: [project.get_id()]
-        }, (error, results, fields) => {
-            if (error){
-                console.log("Codigo de error: ", error.code, "\n");
-                console.log("Mensaje: ", error.sqlMessage, "\n");
-                reject(error.errno);
-            }
-            resolve(results)
+        db.connect()
+        db.query("SELECT id, name, description, state, team FROM tasks LEFT JOIN (SELECT id_task, array_agg(id_employee) as team FROM task_teams GROUP BY id_task) as teams ON tasks.id = teams.id_task WHERE id = $1;",[project.get_id()], (err, res) => {
+            if (err) reject(err);
+            db.end()
+            resolve(res.rows);    
         })
     });   
 }
