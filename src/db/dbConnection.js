@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+/*var mysql = require('mysql');
 
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
@@ -10,4 +10,4 @@ var connection = mysql.createConnection({
  
 connection.connect();
 
-module.exports = connection;
+module.exports = connection;*/
