@@ -7,9 +7,4 @@ const client = new Client({
   }
 });
 
-client.connect()
-      .then(() => console.log('DB connected'))
-      .catch(err => console.error('Connection error: ', err.stack))
-
 module.exports = client;
-
