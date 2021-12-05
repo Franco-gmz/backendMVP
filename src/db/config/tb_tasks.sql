@@ -1,7 +1,7 @@
 CREATE TABLE tasks (
-    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
     description VARCHAR(50) NOT NULL,
     state VARCHAR(15) NOT NULL,
-    id_project INT UNSIGNED NOT NULL
+    id_project INT NOT NULL
 );

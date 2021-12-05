@@ -1,13 +1,9 @@
-CREATE DATABASE psa;
-
-USE psa;
-
 CREATE TABLE projects (
-    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     start DATE NOT NULL,
     finish DATE NOT NULL,
     name VARCHAR(20) NOT NULL,
     description VARCHAR(50) NOT NULL,
-    leader INT UNSIGNED,
+    leader INT,
     state VARCHAR(15) NOT NULL
 );
