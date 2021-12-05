@@ -6,50 +6,36 @@ function create_query(table, fields, values){
         querySQL = querySQL + field + ' = ' + "'" + values[i] + "' ";
         if (i < fields.length - 1) querySQL = querySQL + ', ';
     });
-    querySQL = querySQL + ' WHERE id = ?;';
+    querySQL = querySQL + ' WHERE id = $1;';
     return querySQL;
 }
 
 function update_project(project, fields, values){
     let query = create_query('projects', fields, values);
     return new Promise( (resolve,reject) => {
-        db.query(query, [project.id], (error, results, fields) => {
-            if (error){
-                console.log("Codigo de error: ", error.code, "\n");
-                console.log("Mensaje: ", error.sqlMessage, "\n");
-                reject(error.errno);
-            }
-            resolve();
-    })})
-}
+        db.query(query,[project.id], (err, res) => {
+            if (err) reject(err);
+            resolve(res.rows);    
+        })}
+    )}
 
 function update_task(task, fields, values){
     let query = create_query('tasks', fields, values);
     return new Promise( (resolve,reject) => {
-        db.query(query, [task.id], (error, results, fields) => {
-            if (error){
-                console.log("Codigo de error: ", error.code, "\n");
-                console.log("Mensaje: ", error.sqlMessage, "\n");
-                reject(error.errno);
-            }
-            resolve();
-    })})
-}
+        db.query(query,[task.id], (err, res) => {
+            if (err) reject(err);
+            resolve(res.rows);    
+        })}
+    )}
 
 function update_project_team(project){
     return new Promise( (resolve, reject) => {
         project.get_team().forEach( (employee) => {
-            db.query({
-                sql: 'INSERT INTO project_teams (id_project, id_employee) VALUES (?, ?);',
-                timeout: 40000,
-                values: [project.get_id(), employee]
-            }, (error, results, fields) => {
-                if (error){
-                    console.log("Codigo de error: ", error.code, "\n");
-                    console.log("Mensaje: ", error.sqlMessage, "\n");
-                    reject(error.errno);
-                }
-        })})
+
+            db.query('INSERT INTO project_teams (id_project, id_employee) VALUES ($1, $2);',[project.get_id(), employee], (err, res) => {
+                if (err) reject(err);   
+            })}
+        )
         resolve();
     })
 }
@@ -57,17 +43,10 @@ function update_project_team(project){
 function update_task_team(task){
     return new Promise( (resolve, reject) => {
         task.get_team().forEach( (employee) => {
-            db.query({
-                sql: 'INSERT INTO task_teams (id_task, id_employee) VALUES (?, ?);',
-                timeout: 40000,
-                values: [task.get_id(), employee]
-            }, (error, results, fields) => {
-                if (error){
-                    console.log("Codigo de error: ", error.code, "\n");
-                    console.log("Mensaje: ", error.sqlMessage, "\n");
-                    reject(error.errno);
-                }
-        })})
+            db.query('INSERT INTO task_teams (id_task, id_employee) VALUES ($1, $2);',[task.get_id(), employee], (err, res) => {
+                if (err) reject(err);   
+            })}
+        )
         resolve();
     })
 }
