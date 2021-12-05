@@ -14,7 +14,7 @@ client.query('CREATE TABLE [IF NOT EXISTS] projects (id INT UNSIGNED PRIMARY KEY
   else console.log("Projects created");
 })
 
-module.exports = connection;
+module.exports = client;
 /*var mysql = require('mysql');
 
 var connection = mysql.createConnection({
