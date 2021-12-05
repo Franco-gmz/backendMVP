@@ -9,7 +9,7 @@ function read_project(){
             if (error){
                 console.log("Codigo de error: ", error.code, "\n");
                 console.log("Mensaje: ", error.sqlMessage, "\n");
-                reject(error.errno);
+                reject(error);
             }
             resolve(results)
         })
