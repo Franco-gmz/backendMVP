@@ -18,12 +18,9 @@ router.get('/project', function(req,res){
 
 router.post('/project', function(req,res){
     let project = new Project(req.body)
-    console.log("BODY:\n",req.body);
-    console.log("project:\n",project);
     create.project(project)
           .then( (result) => res.status(200).send({results: result}))
           .catch( (errcode) => {
-              console.log("ERROR\n",errcode);
               res.status(500).send({results:"Error"})
             }) //Actuar segun #errcode
 });
