@@ -2,7 +2,7 @@ let db = require('../dbConnection')
 
 function create_query(table, fields, values){
     let querySQL = 'UPDATE ' + table + ' SET ';
-    console.log("FIELD:\n",field)
+    console.log("FIELD:\n",fields)
     console.log("VALUES:\n",values)
     fields.forEach( function(field,i){
         querySQL = querySQL + field + ' = ' + "'" + values[i] + "' ";
