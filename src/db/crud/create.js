@@ -18,6 +18,7 @@ function create_project(project){
     return new Promise( (resolve, reject) => {
         db.query(query_checking_leader(project),values_checking_leader(project), (err, res) => {
             if (err) reject(err);
+            console.log("RESPUESTA DE LA DB: ", res)
             resolve(res.rows);    
         })
     })
