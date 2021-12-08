@@ -3,28 +3,24 @@ let db = require('../dbConnection')
 function erase_project(project){
     return new Promise( (resolve, reject) => {
         db.query("DELETE FROM projects WHERE id = $1;",[project.get_id()], (err, res) => {
-            if (err) reject(err);
-            resolve();    
+            if (err) reject(err);    
         })
         db.query("SELECT id_project FROM task WHERE id_project = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);
             if(res){
-                console.log("RES.ROWS:\n",res);
                 db.query("DELETE FROM task_teams WHERE id_task = ANY($1);",res.rows, (err, res) => {
-                    if (err) reject(err);
-                    resolve();    
+                    if (err) reject(err);   
                 })
             }   
         })
         db.query("DELETE FROM task WHERE id_project = $1;",[project.get_id()], (err, res) => {
-            if (err) reject(err);
-            resolve();    
+            if (err) reject(err);    
         })
         
         db.query("DELETE FROM project_teams WHERE id_project = $1;",[project.get_id()], (err, res) => {
-            if (err) reject(err);
-            resolve();    
+            if (err) reject(err);   
         })
+        resolve();
     });   
 }
 
