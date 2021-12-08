@@ -35,7 +35,7 @@ router.put('/project', function(req,res){
 
 router.delete('/project/:id', function(req,res){
     let project = new Project(req.params)
-    console.log(req.params)
+    console.log(project)
     erase.project(project)
          .then( () => res.status(200).send({results: "OK"}))
          .catch( (errcode) => res.status(500).send({results:"Error"})) //Actuar segun #errcode
