@@ -15,7 +15,7 @@ function update_project(project, fields, values){
     return new Promise( (resolve,reject) => {
         db.query(query,[project.id], (err, res) => {
             if (err) reject(err);
-            resolve(res.rows);    
+            resolve();    
         })}
     )}
 
@@ -24,7 +24,7 @@ function update_task(task, fields, values){
     return new Promise( (resolve,reject) => {
         db.query(query,[task.id], (err, res) => {
             if (err) reject(err);
-            resolve(res.rows);    
+            resolve();    
         })}
     )}
 
