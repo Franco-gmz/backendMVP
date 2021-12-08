@@ -4,7 +4,26 @@ function erase_project(project){
     return new Promise( (resolve, reject) => {
         db.query("DELETE FROM projects WHERE id = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);
-            resolve(res.rows);    
+            resolve();    
+        })
+        db.query("SELECT id_project FROM task WHERE id_project = $1;",[project.get_id()], (err, res) => {
+            if (err) reject(err);
+            if(res.rows){
+                console.log("RES.ROWS:\n",res.rows);
+                db.query("DELETE FROM task_teams WHERE id_task = ANY($1);",res.rows, (err, res) => {
+                    if (err) reject(err);
+                    resolve();    
+                })
+            }   
+        })
+        db.query("DELETE FROM task WHERE id_project = $1;",[project.get_id()], (err, res) => {
+            if (err) reject(err);
+            resolve();    
+        })
+        
+        db.query("DELETE FROM project_teams WHERE id_project = $1;",[project.get_id()], (err, res) => {
+            if (err) reject(err);
+            resolve();    
         })
     });   
 }
@@ -13,7 +32,7 @@ function erase_task(task){
     return new Promise( (resolve, reject) => {
         db.query("DELETE FROM tasks WHERE id = $1;",[task.get_id()], (err, res) => {
             if (err) reject(err);
-            resolve(res.rows);    
+            resolve();    
         })
     });   
 }
@@ -22,7 +41,7 @@ function erase_project_member(project){
     return new Promise( (resolve, reject) => {
         db.query("DELETE FROM project_teams WHERE (id_project = $1 AND id_employee = $2);", [project.get_id(), project.get_team()], (err, res) => {
             if (err) reject(err);
-            resolve(res.rows);    
+            resolve();    
         })
     });   
 }
@@ -31,7 +50,7 @@ function erase_task_member(task){
     return new Promise( (resolve, reject) => {
         db.query("DELETE FROM task_teams WHERE (id_task = $1 AND id_employee = $2);", [task.get_id(), task.get_team()], (err, res) => {
             if (err) reject(err);
-            resolve(res.rows);    
+            resolve();    
         })
     });   
 }
