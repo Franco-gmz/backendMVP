@@ -22,7 +22,10 @@ router.post('/project', function(req,res){
     console.log("project:\n",project);
     create.project(project)
           .then( (result) => res.status(200).send({results: result}))
-          .catch( (errcode) => res.status(500).send({results:"Error"})) //Actuar segun #errcode
+          .catch( (errcode) => {
+              console.log("ERROR\n",errcode);
+              res.status(500).send({results:"Error"})
+            }) //Actuar segun #errcode
 });
 
 router.put('/project', function(req,res){
