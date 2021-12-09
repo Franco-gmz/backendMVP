@@ -27,9 +27,12 @@ router.post('/project', function(req,res){
 
 router.put('/project', function(req,res){
     let project = new Project(req.body)
+    console.log("BODY:\n",req.body);
     update.project(project, req.body.fields, req.body.values)
           .then( () => res.status(200).send({results: "OK"}))
-          .catch( (errcode) => res.status(500).send({results:"Error"})) //Actuar segun #errcode
+          .catch( (errcode) => {
+              console.log("ERROR: ",errcode)
+              res.status(500).send({results:"Error"})}) //Actuar segun #errcode
         
 });
 
