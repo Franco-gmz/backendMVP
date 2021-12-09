@@ -15,9 +15,13 @@ function values_checking_leader(project){
 }
 
 function create_project(project){
+    console.log("PROYECTO:\n",project);
     return new Promise( (resolve, reject) => {
         db.query(query_checking_leader(project),values_checking_leader(project), (err, res) => {
-            if (err) reject(err);
+            if (err){
+                console.log("ERROR\n",err)
+                reject(err);
+            }
             resolve();    
         })
     })
