@@ -32,7 +32,7 @@ function erase_task(task){
                 reject(err);
             }
         })
-        db.query("DELETE FROM task_teams WHERE id_task = $1;",task.get_id(), (err, res) => {
+        db.query("DELETE FROM task_teams WHERE id_task = $1;",[task.get_id()], (err, res) => {
             if (err) reject(err);  
             resolve();
         })
