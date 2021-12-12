@@ -1,12 +1,12 @@
 let db = require('../dbConnection')
 
 function project_query(){
-    return 'INSERT INTO projects (start, finish, name, description, state, leader) VALUES ($1, $2, $3, $4, $5, $6) RETURNING TO_CHAR(start, "dd/mm/yyyy") as start, TO_CHAR(finish, "dd/mm/yyyy") as finish, name, description, state, leader;';
+    return 'INSERT INTO projects (start, finish, name, description, leader,state) VALUES ($1, $2, $3, $4, $5, $6) RETURNING TO_CHAR(start, "dd/mm/yyyy") as start, TO_CHAR(finish, "dd/mm/yyyy") as finish, name, description, leader, state;';
 }
 
 function project_values(project){
     let leader = project.leader == undefined ? 0 : project.get_leader();
-    return [project.get_start(), project.get_finish(), project.get_name(), project.get_description(),project.get_state(), leader];
+    return [project.get_start(), project.get_finish(), project.get_name(), project.get_description(), leader, project.get_state()];
 }
 
 function create_project(project){
