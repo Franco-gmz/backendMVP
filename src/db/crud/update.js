@@ -21,6 +21,7 @@ function update_project(project, fields, values){
 
 function update_task(task, fields, values){
     let query = create_query('tasks', fields, values);
+    console.log("UPDATE query:\n",query)
     return new Promise( (resolve,reject) => {
         db.query(query,[task.id], (err, res) => {
             if (err) reject(err);
