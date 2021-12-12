@@ -71,10 +71,10 @@ router.delete('/task', function(req,res){
     let task = new Task(req.body)
     erase.task(task)
          .then( () => res.status(200).send({results: "OK"}))
-         .catch( (errcode) => {
-             console.log(errcode)
-             res.status(500).send({results:"Error"})
-          } //Actuar segun #errcode
+         .catch( errcode => {
+             console.log(errcode);
+             res.status(500).send({results:"Error"});
+          }) //Actuar segun #errcode
 });
 
 // PROJECT TEAMS
