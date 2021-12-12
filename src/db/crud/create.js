@@ -1,7 +1,7 @@
 let db = require('../dbConnection')
 
 function project_query(){
-    return 'INSERT INTO projects (start, finish, name, description, leader,state) VALUES ($1, $2, $3, $4, $5, $6) RETURNING TO_CHAR(start, "dd/mm/yyyy") as start, TO_CHAR(finish, "dd/mm/yyyy") as finish, name, description, leader, state;';
+    return 'INSERT INTO projects (start, finish, name, description, leader,state) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;';
 }
 
 function project_values(project){
