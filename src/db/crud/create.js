@@ -2,7 +2,7 @@ let db = require('../dbConnection')
 
 function query_checking_leader(project){
     if (project.leader == undefined) {
-        return 'INSERT INTO projects (start, finish, name, description, state) VALUES ($1, $2, $3, $4, $5) RETURNING (start, finish, name, description, state,leader);';
+        return 'INSERT INTO projects (start, finish, name, description, state) VALUES ($1, $2, $3, $4, $5) RETURNING (TO_CHAR(start, "dd/mm/yyyy") as start, TO_CHAR(finish, "dd/mm/yyyy") as finish, name, description, state,leader);';
     }
     return 'INSERT INTO projects (start, finish, name, description, leader, state) VALUES ($1, $2, $3, $4, $5, $6);';
 }
