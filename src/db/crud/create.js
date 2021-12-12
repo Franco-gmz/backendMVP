@@ -19,7 +19,6 @@ function create_project(project){
     return new Promise( (resolve, reject) => {
         db.query(query_checking_leader(project),values_checking_leader(project), (err, res) => {
             if (err){
-                console.log("ERROR\n",err)
                 reject(err);
             }
             resolve();    
@@ -29,7 +28,7 @@ function create_project(project){
 
 function create_task(task){
     return new Promise( (resolve, reject) => {
-        db.query("INSERT INTO tasks (name, description,state, id_project) VALUES ($1, $2, $3, $4);",[task.get_name(),task.get_description(),task.get_state(),task.get_project()], (err, res) => {
+        db.query("INSERT INTO tasks (name, description,state, id_project) VALUES ($1, $2, $3, $4) RETURNING id;",[task.get_name(),task.get_description(),task.get_state(),task.get_project()], (err, res) => {
             if (err) reject(err);
             console.log(res);
             resolve();    
