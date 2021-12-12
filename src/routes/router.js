@@ -51,7 +51,7 @@ router.delete('/project/:id', function(req,res){
 router.post('/task', function(req,res){
     let task = new Task(req.body)
     create.task(task)
-          .then( (task_id) => res.status(200).send({id: task_id}))
+          .then( (createdTask) => res.status(200).send({task: createdTask}))
           .catch( (err) => res.status(500).send({results:"Ha ocurrido un error"}))
 });
 
