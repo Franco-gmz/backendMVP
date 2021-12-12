@@ -9,7 +9,7 @@ function read_project(){
     });   
 }
 
-function read_task(project){
+function read_task_set(project){
     return new Promise( (resolve,reject) => {
         db.query("SELECT id, name, description, state, team FROM tasks LEFT JOIN (SELECT id_task, array_agg(id_employee) as team FROM task_teams GROUP BY id_task) as teams ON tasks.id = teams.id_task WHERE id_project = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);
@@ -18,4 +18,13 @@ function read_task(project){
     });   
 }
 
-module.exports = { project : read_project, task : read_task};
+function read_task(task){
+    return new Promise( (resolve,reject) => {
+        db.query("SELECT id, name, description, state, team FROM tasks WHERE id = $1;",[task.get_id()], (err, res) => {
+            if (err) reject(err);
+            resolve(res.rows);    
+        })
+    });   
+}
+
+module.exports = { project : read_project, taskSet : read_task_set, task: read_task};

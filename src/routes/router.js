@@ -53,8 +53,15 @@ router.post('/task', function(req,res){
 });
 
 router.get('/task/:id', function(req,res){  
-    let project = new Project(req.params)
+    let task = new Project(req.params)
     read.task(project)
+        .then( (results) => res.status(200).send({results: results}))
+        .catch( (errcode) => res.status(500).send({results:"Error"})) //Actuar segun #errcode
+});
+
+router.get('/task/set/:id', function(req,res){  
+    let project = new Project(req.params)
+    read.taskSet(project)
         .then( (results) => res.status(200).send({results: results}))
         .catch( (errcode) => res.status(500).send({results:"Error"})) //Actuar segun #errcode
 });
