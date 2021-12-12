@@ -13,6 +13,7 @@ function create_project(project){
     return new Promise( (resolve, reject) => {
         db.query(project_query(), project_values(project), (err, res) => {
             if (err) reject(err);
+            console.log("res:\n",res)
             resolve(res.rows[0]);    
         })
     })
