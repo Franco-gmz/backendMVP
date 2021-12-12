@@ -67,8 +67,8 @@ router.put('/task', function(req,res){
         
 });
 
-router.delete('/task', function(req,res){
-    let task = new Task(req.body)
+router.delete('/task/:id', function(req,res){
+    let task = new Task(req.params)
     erase.task(task)
          .then( () => res.status(200).send({results: "OK"}))
          .catch( errcode => {
