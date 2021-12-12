@@ -73,7 +73,7 @@ router.delete('/task', function(req,res){
          .then( () => res.status(200).send({results: "OK"}))
          .catch( (errcode) => {
              console.log(errcode)
-             res.status(500).send({results:"Error"}))
+             res.status(500).send({results:"Error"})
           } //Actuar segun #errcode
 });
 
