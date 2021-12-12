@@ -31,6 +31,7 @@ function create_task(task){
     return new Promise( (resolve, reject) => {
         db.query("INSERT INTO tasks (name, description,state, id_project) VALUES ($1, $2, $3, $4);",[task.get_name(),task.get_description(),task.get_state(),task.get_project()], (err, res) => {
             if (err) reject(err);
+            console.log(res);
             resolve();    
         })
     })
