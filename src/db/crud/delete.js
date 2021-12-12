@@ -26,9 +26,14 @@ function erase_project(project){
 
 function erase_task(task){
     return new Promise( (resolve, reject) => {
+        console.log("query1:\n","DELETE FROM tasks WHERE id = $1;",[task.get_id()]);
+        console.log("query2:\n","DELETE FROM task_teams WHERE id_task = $1;",task.get_id());
         db.query("DELETE FROM tasks WHERE id = $1;",[task.get_id()], (err, res) => {
             if (err) reject(err);
-            resolve();    
+        })
+        db.query("DELETE FROM task_teams WHERE id_task = $1;",task.get_id(), (err, res) => {
+            if (err) reject(err);   
+            resolve();
         })
     });   
 }
