@@ -53,8 +53,8 @@ router.post('/task', function(req,res){
 });
 
 router.get('/task/:id', function(req,res){  
-    let task = new Project(req.params)
-    read.task(project)
+    let task = new Task(req.params)
+    read.task(task)
         .then( (results) => res.status(200).send({results: results}))
         .catch( (errcode) => res.status(500).send({results:"Error"})) //Actuar segun #errcode
 });
