@@ -73,6 +73,13 @@ router.get('/task/set/:id', function(req,res){
         .catch( errcode => res.status(500).send({results:"Ha ocurrido un error"}))
 });
 
+// get all existing tasks
+router.get('/tasks', function(req,res){  
+    read.all_tasks()
+        .then( (results) => res.status(200).send({results: results}))
+        .catch( errcode => res.status(500).send({results:"Ha ocurrido un error"}))
+});
+
 // update a task
 router.put('/task', function(req,res){
     let task = new Task(req.body)
