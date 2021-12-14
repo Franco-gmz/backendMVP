@@ -13,7 +13,6 @@ function create_project(project){
     return new Promise( (resolve, reject) => {
         db.query(project_query(), project_values(project), (err, res) => {
             if (err) reject(err);
-            console.log("res:\n",res)
             resolve(res.rows[0]);    
         })
     })
@@ -21,7 +20,7 @@ function create_project(project){
 
 function create_task(task){
     return new Promise( (resolve, reject) => {
-        db.query("INSERT INTO tasks (name, description,state, id_project) VALUES ($1, $2, $3, $4) RETURNING id;",[task.get_name(),task.get_description(),task.get_state(),task.get_project()], (err, res) => {
+        db.query("INSERT INTO tasks (name, description,state, id_project) VALUES ($1, $2, $3, $4) RETURNING *;",[task.get_name(),task.get_description(),task.get_state(),task.get_project()], (err, res) => {
             if (err) reject(err);
             resolve(res.rows[0]);    
         })

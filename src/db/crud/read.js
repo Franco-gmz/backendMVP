@@ -20,7 +20,7 @@ function read_task_set(project){
 
 function read_task(task){
     return new Promise( (resolve,reject) => {
-        db.query("SELECT id, name, description, state FROM tasks WHERE id = $1;",[task.get_id()], (err, res) => {
+        db.query("SELECT id, name, description, state, id_project FROM tasks WHERE id = $1;",[task.get_id()], (err, res) => {
             if (err) reject(err);
             resolve(res.rows);    
         })

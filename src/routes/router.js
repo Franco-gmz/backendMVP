@@ -24,7 +24,7 @@ router.get('/project', function(req,res){
 router.post('/project', function(req,res){
     let project = new Project(req.body)
     create.project(project)
-          .then( () => res.status(200).send({results: project}))
+          .then( (createdProject) => res.status(200).send({results: createdProject}))
           .catch( errcode => {
               console.log(errcode)
               res.status(500).send({results:"Ha ocurrido un error"})})
