@@ -1,5 +1,6 @@
 let db = require('../dbConnection')
 
+// remove a project, its tasks, team, and teams from its tasks
 function erase_project(project){
     return new Promise( (resolve, reject) => {
         db.query("DELETE FROM projects WHERE id = $1;",[project.get_id()], (err, res) => {
@@ -24,6 +25,7 @@ function erase_project(project){
     });   
 }
 
+// remove a task and its team
 function erase_task(task){
     return new Promise( (resolve, reject) => {
         console.log("task:\n",task)

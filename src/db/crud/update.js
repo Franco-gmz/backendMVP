@@ -1,5 +1,6 @@
 let db = require('../dbConnection')
 
+// create the query to update  
 function create_query(table, fields, values){
     let querySQL = 'UPDATE ' + table + ' SET ';
     fields.forEach( function(field,i){
@@ -10,6 +11,7 @@ function create_query(table, fields, values){
     return querySQL;
 }
 
+// update a project
 function update_project(project, fields, values){
     let query = create_query('projects', fields, values);
     return new Promise( (resolve,reject) => {
@@ -19,6 +21,7 @@ function update_project(project, fields, values){
         })}
     )}
 
+// update a task
 function update_task(task, fields, values){
     let query = create_query('tasks', fields, values);
     console.log("UPDATE query:\n",query)

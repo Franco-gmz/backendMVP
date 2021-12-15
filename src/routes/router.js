@@ -100,7 +100,7 @@ router.delete('/task/:id', function(req,res){
 // Team project
 
 // update team  of a project
-router.put('/project/team', function(req,res){
+router.put('/team/project', function(req,res){
     let project = new Project(req.body)
     update.project_team(project)
           .then( (result) => res.status(200).send({results: result}))
@@ -108,7 +108,7 @@ router.put('/project/team', function(req,res){
 });
 
 // delete team members of a project
-router.delete('/project/team', function(req,res){
+router.delete('/team/project', function(req,res){
     let project = new Project(req.body)
     erase.project_team(project)
          .then( () => res.status(200).send({results: "Se ha eliminado correctamente"}))
@@ -118,7 +118,7 @@ router.delete('/project/team', function(req,res){
 // Team task
 
 // update team members of a task
-router.put('/task/team', function(req,res){
+router.put('/team/task', function(req,res){
     let task = new Task(req.body)
     update.task_team(task)
           .then( (result) => res.status(200).send({results: result}))
@@ -126,7 +126,7 @@ router.put('/task/team', function(req,res){
 });
 
 // delete team members of a task
-router.delete('/task/team', function(req,res){
+router.delete('/team/task', function(req,res){
     let task = new Task(req.body)
     erase.task_team(task)
          .then( () => res.status(200).send({results: "OK"}))
