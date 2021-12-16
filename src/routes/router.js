@@ -15,9 +15,12 @@ let update = require('../db/crud/update.js')
 
 router.get('/project/:id', function(req,res){ 
     let project = new Project(req.params) 
+    console.log(project)
     read.project(project)
         .then( (results) => res.status(200).send({results: results}))
-        .catch( (errcode) => res.status(500).send({results:"Ha ocurrido un error"}))
+        .catch( (errcode) => {
+            res.status(500).send({results:"Ha ocurrido un error"})
+            console.log(errcode)})
 });
 
 // get all projects and their teams
