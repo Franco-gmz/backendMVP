@@ -43,12 +43,13 @@ function erase_task(task){
 // remove project team members
 function erase_project_member(project){
     let id = project.get_id();
+    let employee = project.get_team();
     return new Promise( (resolve, reject) => {
-        project.get_team().forEach( (employee) => {
+        
             db.query("DELETE FROM project_teams WHERE (id_project = $1 AND id_employee = $2);", [id, employee], (err, res) => {
             if (err) reject(err);
             resolve();    
-            })
+
         })
     });   
 }
