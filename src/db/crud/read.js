@@ -10,7 +10,7 @@ function read_project(project){
 }
 
 // read all projects
-function read_project(){
+function read_projects(){
     return new Promise( (resolve,reject) => {
         db.query("SELECT id, name, description, TO_CHAR(start, 'dd/mm/yyyy') as start, TO_CHAR(finish, 'dd/mm/yyyy') as finish, state, leader, team FROM projects LEFT JOIN (SELECT id_project, array_agg(id_employee) as team FROM project_teams group by id_project) as teams ON projects.id = teams.id_project;", (err, res) => {
             if (err) reject(err);
@@ -49,4 +49,4 @@ function read_all_tasks(){
     }); 
 }
 
-module.exports = { projects : read_project, taskSet : read_task_set, task: read_task, all_tasks: read_all_tasks};
+module.exports = { project:read_project, projects : read_projects, taskSet : read_task_set, task: read_task, all_tasks: read_all_tasks};
