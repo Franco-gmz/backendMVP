@@ -110,9 +110,13 @@ router.put('/team/project', function(req,res){
 // delete team members of a project
 router.delete('/team/project', function(req,res){
     let project = new Project(req.body)
+    console.log("project",project)
     erase.project_team(project)
          .then( () => res.status(200).send({results: "Se ha eliminado correctamente"}))
-         .catch( (errcode) => res.status(500).send({results:"Ha ocurrido un error"}))
+         .catch( (errcode) => {
+             res.status(500).send({results:"Ha ocurrido un error"})
+            console.log(errcode)
+        })
 });
 
 // Team task
