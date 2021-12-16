@@ -108,8 +108,8 @@ router.put('/team/project', function(req,res){
 });
 
 // delete team members of a project
-router.delete('/team/project', function(req,res){
-    let project = new Project(req.body)
+router.delete('/team/project/:id/:team', function(req,res){
+    let project = new Project(req.params)
     console.log("project",project)
     erase.project_team(project)
          .then( () => res.status(200).send({results: "Se ha eliminado correctamente"}))
