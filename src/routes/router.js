@@ -140,8 +140,8 @@ router.put('/team/task', function(req,res){
 });
 
 // delete team members of a task
-router.delete('/team/task', function(req,res){
-    let task = new Task(req.body)
+router.delete('/team/task/:id/:team', function(req,res){
+    let task = new Task(req.params)
     erase.task_team(task)
          .then( () => res.status(200).send({results: "OK"}))
          .catch( (errcode) => res.status(500).send({results:"Ha ocurrido un error"}))
