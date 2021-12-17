@@ -43,8 +43,9 @@ router.post('/project', function(req,res){
 
 // update project
 router.put('/project', function(req,res){
-    console.log(project)
     let project = new Project(req.body)
+    console.log(project)
+    console.log(req.body)
     update.project(project, req.body.fields, req.body.values)
           .then( () => res.status(200).send({results: project }))
           .catch( errcode =>{
