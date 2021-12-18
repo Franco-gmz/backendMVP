@@ -9,14 +9,13 @@ function erase_project(project){
         db.query("SELECT id FROM tasks WHERE id_project = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);
             if(res){
-                console.log(res.rows)
-                let ids = res.rows.map((value) => {value.id})
-                console.log(ids)
-                db.query("DELETE FROM task_teams WHERE id_task = ANY($1::int[]);",ids, (err, res) => {
-                    if (err){
-                        console.log(err)
-                        reject(err); 
-                    }
+                res.rows.forEach((value) => {
+                    db.query("DELETE FROM task_teams WHERE id_task = ANY($1);",[value.id], (err, res) => {
+                        if (err){
+                            console.log(err)
+                            reject(err); 
+                        }
+                    })
                 })
             }   
         })
