@@ -6,7 +6,7 @@ function erase_project(project){
         db.query("DELETE FROM projects WHERE id = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);    
         })
-        db.query("SELECT id_project FROM task WHERE id_project = $1;",[project.get_id()], (err, res) => {
+        db.query("SELECT id FROM tasks WHERE id_project = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);
             if(res){
                 db.query("DELETE FROM task_teams WHERE id_task = ANY($1);",res.rows, (err, res) => {
@@ -14,12 +14,8 @@ function erase_project(project){
                 })
             }   
         })
-        db.query("DELETE FROM task WHERE id_project = $1;",[project.get_id()], (err, res) => {
+        db.query("DELETE FROM tasks WHERE id_project = $1;",[project.get_id()], (err, res) => {
             if (err) reject(err);    
-        })
-        
-        db.query("DELETE FROM project_teams WHERE id_project = $1;",[project.get_id()], (err, res) => {
-            if (err) reject(err);   
         })
         resolve();
     });   
