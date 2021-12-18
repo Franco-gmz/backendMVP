@@ -10,7 +10,9 @@ function erase_project(project){
             if (err) reject(err);
             if(res){
                 console.log(res.rows)
-                db.query("DELETE FROM task_teams WHERE id_task = ANY($1);",res.rows, (err, res) => {
+                let ids = res.rows.map((value) => value.id)
+                console.log(ids)
+                db.query("DELETE FROM task_teams WHERE id_task = ANY($1);",ids, (err, res) => {
                     if (err) reject(err);   
                 })
             }   
